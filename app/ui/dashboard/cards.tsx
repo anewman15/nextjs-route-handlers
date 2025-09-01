@@ -6,12 +6,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { lusitana } from '@/app/ui/fonts';
 import { formatCurrency } from '@/app/lib/utils';
-import {
-  mockNumberOfCustomers,
-  mockNumberOfInvoices,
-  mockTotalPaidInvoices,
-  mockTotalPendingInvoices,
-} from '@/app/lib/mock.data';
+import { invoices, customers } from '@/app/lib/strapi/strapiClient';
 
 const iconMap = {
   collected: BanknotesIcon,
@@ -21,14 +16,32 @@ const iconMap = {
 };
 
 export default async function CardWrapper() {
-  const totalPaidInvoices = mockTotalPaidInvoices;
-  const totalPendingInvoices = mockTotalPendingInvoices;
-  const numberOfCustomers = mockNumberOfCustomers;
-  const numberOfInvoices = mockNumberOfInvoices;
+  const paidInvoices = (await invoices.find({
+    fields: ["amount", "invoice_status"],
+    filters: {
+      "invoice_status": {
+        $eq: "paid",
+      },
+    },
+  }))?.data;
+
+  const pendingInvoices = (await invoices.find({
+    fields: ["amount", "invoice_status"],
+    filters: {
+      "invoice_status": {
+        $eq: "pending",
+      },
+    },
+  }))?.data;
+
+  const totalPaidInvoices = paidInvoices?.reduce((sum: number, invoice: any) => sum + invoice?.amount, 0);
+  const totalPendingInvoices = pendingInvoices?.reduce((sum: number, invoice: any) => sum + invoice?.amount, 0);
+
+  const numberOfCustomers = (await customers.find())?.data?.length;
+  const numberOfInvoices = (await invoices.find())?.data?.length;
 
   return (
     <>
-
       <Card title="Collected" value={formatCurrency(totalPaidInvoices)} type="collected" />
       <Card title="Pending" value={formatCurrency(totalPendingInvoices)} type="pending" />
       <Card title="Total Invoices" value={numberOfInvoices} type="invoices" />
