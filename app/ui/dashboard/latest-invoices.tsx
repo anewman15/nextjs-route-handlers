@@ -2,12 +2,21 @@ import Image from 'next/image';
 import { ArrowPathIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import { lusitana } from '@/app/ui/fonts';
+import { invoices } from '@/app/lib/strapi/strapiClient';
+import { formatCurrency } from '@/app/lib/utils';
 
-export default async function LatestInvoices({
-  latestInvoices,
-}: {
-  latestInvoices: any;
-}) {
+export default async function LatestInvoices() {
+  const latestInvoices = (await invoices.find({
+    populate: {
+      customer: {
+        fields: ["name", "email", "image_url"],
+      },
+    },
+    sort: ["createdAt:desc"],
+    pagination: {
+      limit: 5,
+    }
+  }))?.data;
 
   if (!latestInvoices || latestInvoices.length === 0) {
     return <p className="mt-4 text-gray-400">No data available.</p>;
@@ -35,25 +44,25 @@ export default async function LatestInvoices({
               >
                 <div className="flex items-center">
                   <Image
-                    src={invoice.image_url as string}
-                    alt={`${invoice.name}'s profile picture`}
+                    src={invoice?.customer?.image_url || "/good-raby.png"}
+                    alt="avatar"
                     className="mr-4 rounded-full"
                     width={32}
                     height={32}
                   />
                   <div className="min-w-0">
                     <p className="truncate text-sm font-semibold md:text-base">
-                      {invoice.name}
+                      {invoice?.customer?.name}
                     </p>
                     <p className="hidden text-sm text-gray-500 sm:block">
-                      {invoice.email}
+                      {invoice?.customer?.email}
                     </p>
                   </div>
                 </div>
                 <p
                   className={`${lusitana.className} truncate text-sm font-medium md:text-base`}
                 >
-                  {invoice.amount}
+                  {formatCurrency(invoice?.amount)}
                 </p>
               </div>
             );
