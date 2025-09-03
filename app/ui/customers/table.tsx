@@ -23,7 +23,7 @@ export default async function CustomersTable() {
         <div className="inline-block min-w-full align-middle">
           <div className="overflow-hidden rounded-md bg-gray-50 p-2 md:pt-0">
             <div className="md:hidden">
-              {customersData?.map((customer: any) => (
+              {customersData?.map((customer) => (
                 <div
                   key={customer?.id}
                   className="mb-2 w-full rounded-md bg-white p-4"
@@ -51,13 +51,13 @@ export default async function CustomersTable() {
                     <div className="flex w-1/2 flex-col">
                       <p className="text-xs">Pending</p>
                       <p className="font-medium">{
-                        customer?.invoices?.filter((invoice: any) => invoice?.invoice_status === 'pending').length
+                        customer?.invoices?.filter((invoice: { invoice_status: string; }) => invoice?.invoice_status === 'pending').length
                       }</p>
                     </div>
                     <div className="flex w-1/2 flex-col">
                       <p className="text-xs">Paid</p>
                       <p className="font-medium">{
-                        customer?.invoices?.filter((invoice: any) => invoice?.invoice_status === 'paid').length
+                        customer?.invoices?.filter((invoice: { invoice_status: string; }) => invoice?.invoice_status === 'paid').length
                       }</p>
                     </div>
                   </div>
@@ -93,7 +93,7 @@ export default async function CustomersTable() {
               </thead>
 
               <tbody className="bg-white divide-y divide-gray-200 text-gray-900">
-                {customersData.map((customer: any ) => (
+                {customersData.map((customer ) => (
                   <tr key={customer.id} className="group">
                     <td className="whitespace-nowrap bg-white py-5 pl-4 pr-3 text-sm text-black group-first-of-type:rounded-md group-last-of-type:rounded-md sm:pl-6">
                       <div className="flex items-center gap-3">
@@ -114,11 +114,11 @@ export default async function CustomersTable() {
                       {customer?.invoices?.length}
                     </td>
                     <td className="whitespace-nowrap bg-white px-4 py-5 text-sm">
-                      {customer?.invoices?.filter((invoice: any) => invoice?.invoice_status === 'pending').length
+                      {customer?.invoices?.filter((invoice: { invoice_status: string; }) => invoice?.invoice_status === 'pending').length
 }
                     </td>
                     <td className="whitespace-nowrap bg-white px-4 py-5 text-sm group-first-of-type:rounded-md group-last-of-type:rounded-md">
-                      {customer?.invoices?.filter((invoice: any) => invoice?.invoice_status === 'paid').length
+                      {customer?.invoices?.filter((invoice: { invoice_status: string; }) => invoice?.invoice_status === 'paid').length
 }
                     </td>
                     <td className="whitespace-nowrap py-3 pl-6 pr-3">
