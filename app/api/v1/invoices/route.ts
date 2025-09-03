@@ -2,10 +2,12 @@ import { NextRequest, NextResponse } from "next/server";
 import { invoices } from "@/app/lib/strapi/strapiClient";
 
 export async function GET() {
-
-  const allInvoices = await invoices.find();
-
-  return NextResponse.json(allInvoices);
+  try {
+    const allInvoices = await invoices.find();
+    return NextResponse.json(allInvoices);
+  } catch (e) {
+    return NextResponse.json(e);
+  };
 };
 
 export async function POST(request: NextRequest) {
