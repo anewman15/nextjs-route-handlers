@@ -21,7 +21,7 @@ export default async function InvoicesTable() {
       <div className="inline-block min-w-full align-middle">
         <div className="rounded-lg bg-gray-50 p-2 md:pt-0">
           <div className="md:hidden">
-            {invoicesData?.map((invoice: any) => (
+            {invoicesData?.map((invoice) => (
               <div
                 key={invoice?.id}
                 className="mb-2 w-full rounded-md bg-white p-4"
@@ -36,9 +36,9 @@ export default async function InvoicesTable() {
                         height={28}
                         alt="avatar"
                       />
-                      <p>{invoice?.name}</p>
+                      <p>{invoice?.customer?.name}</p>
                     </div>
-                    <p className="text-sm text-gray-500">{invoice?.email}</p>
+                    <p className="text-sm text-gray-500">{invoice?.customer?.email}</p>
                   </div>
                   <InvoiceStatus status={invoice?.invoice_status as string} />
                 </div>
@@ -83,7 +83,7 @@ export default async function InvoicesTable() {
               </tr>
             </thead>
             <tbody className="bg-white">
-              {invoicesData?.map((invoice: any) => (
+              {invoicesData?.map((invoice) => (
                 <tr
                   key={invoice?.id}
                   className="w-full border-b py-3 text-sm last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg"
