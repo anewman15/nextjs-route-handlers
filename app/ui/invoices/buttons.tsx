@@ -22,7 +22,7 @@ export function CreateInvoice() {
 export function DownloadCSV() {
   return (
     <Link
-      href={`/api/v1/invoices/csv`}
+      href={`/api/v2/invoices/en-us/csv`}
       className="h-10 px-4 flex items-center rounded-lg bg-blue-600 text-sm font-medium text-white transition-colors hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
     >
       <span className="hidden md:block text-white">Download&nbsp;as&nbsp;CSV</span>&nbsp;&nbsp;
