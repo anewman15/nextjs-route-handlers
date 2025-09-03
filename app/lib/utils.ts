@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export const formatCurrency = (amount: number) => {
   return amount.toLocaleString('en-US', {
     style: 'currency',
