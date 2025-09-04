@@ -8,8 +8,8 @@ export async function GET(
   try {
     const path = (await params)?.path;
     const redirectEntry = await get(path);
-    
-    return NextResponse.json({ path: redirectEntry });
+
+    return NextResponse.json(redirectEntry);
   } catch (e) {
     return NextResponse.json(e);
   };
