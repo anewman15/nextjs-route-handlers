@@ -1,11 +1,16 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { NextRequest, NextResponse } from "next/server";
 import { invoices } from "@/app/lib/strapi/strapiClient";
 
 export async function GET() {
 
-  const allInvoices = await invoices.find();
+  try {
+    const allInvoices = await invoices.find();
 
-  return NextResponse.json(allInvoices);
+    return NextResponse.json(allInvoices);
+  } catch (e: any ){
+    return NextResponse.json(e, { status: 500 });
+  }
 };
 
 export async function POST(request: NextRequest) {
@@ -13,8 +18,10 @@ export async function POST(request: NextRequest) {
 
   try {
     const createdInvoice = await invoices.create(formData);
+
     return NextResponse.json(createdInvoice);
-  } catch (e) {
-    return NextResponse.json(e);
+  } catch (e: any){
+
+    return NextResponse.json(e, { status: 500 });
   };
 };
