@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { NextRequest, NextResponse } from "next/server";
 import { invoices } from "@/app/lib/strapi/strapiClient";
 
@@ -5,14 +6,14 @@ export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }>}
 ) {
-
   const id = (await params).id;
 
   try {
     const invoice = await invoices.findOne(id);
+
     return NextResponse.json(invoice);
-  } catch (e) {
-    return NextResponse.json(e);
+  } catch (e: any) {
+    return NextResponse.json(e, { status: 500 });
   };
 };
 
@@ -26,9 +27,10 @@ export async function PUT(
 
   try {
     const invoice = await invoices.update(id, formData);
+
     return NextResponse.json(invoice);
-  } catch (e) {
-    return NextResponse.json(e);
+  } catch (e: any) {
+    return NextResponse.json(e, { status: 500 });
   };
 };
 
@@ -41,8 +43,9 @@ export async function DELETE(
 
   try {
     const invoice = await invoices.delete(id);
+
     return NextResponse.json(invoice);
-  } catch (e) {
-    return NextResponse.json(e);
+  } catch (e: any) {
+    return NextResponse.json(e, { status: 500 });
   };
 };
