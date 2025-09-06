@@ -1,5 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { NextResponse } from "next/server";
-import { exchangeRates } from "exchange-rates-api";
 import { invoices } from "@/app/lib/strapi/strapiClient";
 
 export async function GET() {
@@ -16,7 +16,10 @@ export async function GET() {
       },
     });
 
-    // USDRates = (await exchangeRates().base("USD").symbols("EUR").latest().fetch()) as number;
+    USDRates = (await (
+      await fetch("https://open.er-api.com/v6/latest/USD"))
+      .json()
+    )?.rates?.EUR;
 
     const USDtoEURRate = USDRates || (0.86 as number);
     const invoicesJSON = await JSON.parse(JSON.stringify(invoicesInUSD?.data));
