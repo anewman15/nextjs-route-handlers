@@ -22,10 +22,10 @@
     "dotenv": "^16.4.7",
     "exchange-rates-api": "^1.1.0",
     "json-2-csv": "^5.5.9",
-    "next": "^15.5.1-canary.21",
+    "next": "16.0.3",
     "postcss": "8.5.1",
-    "react": "latest",
-    "react-dom": "latest",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
     "react-hook-form": "^7.55.0",
     "tailwindcss": "^4",
     "tsx": "^4.19.3",
@@ -37,11 +37,15 @@
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
+    "@types/react": "19.2.7",
+    "@types/react-dom": "19.2.3",
     "eslint": "^9",
-    "eslint-config-next": "15.5.2",
+    "eslint-config-next": "16.0.3",
     "strapi-generate-types": "^1.0.0",
     "typescript": "^5"
+  },
+  "overrides": {
+    "@types/react": "19.2.7",
+    "@types/react-dom": "19.2.3"
   }
 }
