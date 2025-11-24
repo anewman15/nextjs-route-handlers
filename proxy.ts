@@ -9,7 +9,7 @@ export interface RedirectsEntry {
 
 export type RedirectsRecord = Record<string, RedirectsEntry>;
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const pathname = request?.nextUrl?.pathname;
   const redirectKey = pathname?.split("/")?.join("-");
 
